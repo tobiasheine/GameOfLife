@@ -10,6 +10,17 @@
     <packaging>apk</packaging>
     <name>Game of Life</name>
 
+    <repositories>
+        <repository>
+            <id>android.support-mvn-repo</id>
+            <url>https://raw.github.com/kmchugh/android.support/mvn-repo</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>com.google.android</groupId>
@@ -29,17 +40,17 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-        <groupId>org.robolectric</groupId>
-        <artifactId>robolectric</artifactId>
-        <version>2.0-alpha-2</version>
-        <scope>test</scope>
-    </dependency>
-    <dependency>
-        <groupId>org.mockito</groupId>
-        <artifactId>mockito-core</artifactId>
-        <version>1.9.5</version>
-        <scope>test</scope>
-    </dependency>
+            <groupId>org.robolectric</groupId>
+            <artifactId>robolectric</artifactId>
+            <version>2.0-alpha-2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>1.9.5</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <finalName>${project.artifactId}</finalName>
