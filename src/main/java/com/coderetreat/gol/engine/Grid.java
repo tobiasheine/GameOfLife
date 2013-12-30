@@ -28,18 +28,7 @@ public class Grid implements IGrid{
     }
 
     @Override
-    public Cell getCellForPosition(Cell.Position position) throws IllegalArgumentException{
-        if (internalGrid == null){
-            throw new IllegalArgumentException("Grid not initialized");
-        }
-
-        if (position.getX() < 0 || position.getX() >= getWidth()){
-            throw new IllegalArgumentException("Position X is out of range: "+position.getX());
-        }
-
-        if (position.getY() < 0 || position.getY() >= getHeight()){
-            throw new IllegalArgumentException("Position Y is out of range: "+position.getY());
-        }
+    public Cell getCellForPosition(Cell.Position position){
         return internalGrid[position.getX()][position.getY()];
     }
 

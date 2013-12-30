@@ -15,7 +15,6 @@ public class GameOfLifeRules implements IGameOfLifeRules {
     @Override
     public Rules getRuleForCell(Cell cell) {
         List<Cell> neighbours = getCellNeighbours(cell.getPosition());
-
         int numberAliveNeighbours = getNumAliveNeighbours(neighbours);
 
         if (!cell.isAlive() && numberAliveNeighbours == 3){
@@ -31,7 +30,7 @@ public class GameOfLifeRules implements IGameOfLifeRules {
 
         }
 
-        return Rules.CELL_IS_NOT_TOUCHED;
+        return Rules.CELL_DOES_NOT_CHANGE;
     }
 
     private int getNumAliveNeighbours(List<Cell> neighbours) {
@@ -47,34 +46,20 @@ public class GameOfLifeRules implements IGameOfLifeRules {
     private List<Cell> getCellNeighbours(Cell.Position position) {
         List<Cell> neighbours = new ArrayList<Cell>();
 
-        List<Cell.Position> neighbourPositions = getNeighbourPositions(position);
-        for (Cell.Position neighbourPosition : neighbourPositions) {
-            try {
-                neighbours.add(grid.getCellForPosition(neighbourPosition));
-            } catch (IllegalArgumentException exception) {
-                continue;
-            }
-        }
+        int maxX = Math.min(grid.getWidth()-1,position.getX()+1);
+        int maxY = Math.min(grid.getHeight()-1,position.getY()+1);
+        int startX = Math.max(0,position.getX()-1);
+        int startY = Math.max(0,position.getY()-1);
 
+        for (int x = startX; x < maxX+1; x++){
+            for (int y = startY; y < maxY+1; y++){
+                final Cell.Position neighbourPosition = new Cell.Position(x, y);
+                if (!neighbourPosition.equals(position)){
+                    neighbours.add(grid.getCellForPosition(new Cell.Position(x, y)));
+                }
+            }
+        } 
         return neighbours;
     }
 
-    private List<Cell.Position> getNeighbourPositions(Cell.Position position) {
-        List<Cell.Position> positions = new ArrayList<Cell.Position>();
-
-        int x = position.getX();
-        int y = position.getY();
-
-        positions.add(new Cell.Position(x - 1, y + 1));
-        positions.add(new Cell.Position(x, y + 1));
-        positions.add(new Cell.Position(x + 1, y + 1));
-        positions.add(new Cell.Position(x - 1, y));
-        positions.add(new Cell.Position(x + 1, y));
-        positions.add(new Cell.Position(x - 1, y - 1));
-        positions.add(new Cell.Position(x, y - 1));
-        positions.add(new Cell.Position(x + 1, y - 1));
-
-
-        return positions;
-    }
 }

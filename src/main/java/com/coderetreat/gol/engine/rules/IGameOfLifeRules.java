@@ -10,7 +10,7 @@ public interface IGameOfLifeRules {
         CELL_DIES_BECAUSE_OF_OVERPOPULATION,
         CELL_COMES_ALIVE,
         CELL_STAYS_ALIVE,
-        CELL_IS_NOT_TOUCHED;
+        CELL_DOES_NOT_CHANGE;
     }
 
 }

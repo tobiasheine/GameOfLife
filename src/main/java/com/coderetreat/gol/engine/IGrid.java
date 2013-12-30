@@ -4,7 +4,7 @@ import com.coderetreat.gol.models.Cell;
 
 public interface IGrid {
 
-    Cell getCellForPosition(Cell.Position position) throws IllegalArgumentException;
+    Cell getCellForPosition(Cell.Position position);
 
     int getWidth();
 
