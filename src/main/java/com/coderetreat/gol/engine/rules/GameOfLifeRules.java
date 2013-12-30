@@ -30,6 +30,11 @@ public class GameOfLifeRules implements IGameOfLifeRules {
 
         }
 
+        if(cell.isAlive() && numberAliveNeighbours > 3){
+            return Rules.CELL_DIES_BECAUSE_OF_OVERPOPULATION;
+
+        }
+
         return Rules.CELL_DOES_NOT_CHANGE;
     }
 
