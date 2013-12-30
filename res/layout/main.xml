@@ -11,10 +11,13 @@
             android:layout_height="wrap_content"
             android:text="Next Step"/>
 
-    <com.coderetreat.gol.views.GameOfLifeTableLayout
+    <com.coderetreat.gol.views.GameOfLifeGrid
             android:id="@+id/gameOfLifeCanvas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"/>
+            android:layout_width="400dp"
+            android:layout_height="400dp"
+            android:layout_below="@+id/nextStep"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            />
 </RelativeLayout>
 
