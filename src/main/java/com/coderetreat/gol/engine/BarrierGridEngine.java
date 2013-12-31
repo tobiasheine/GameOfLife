@@ -38,11 +38,10 @@ public class BarrierGridEngine extends AbstractGridEngine implements Runnable {
         int currentPosition = 0;
 
         GridWorker worker = null;
-        workers[0] = worker;
 
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-                if (currentPosition % numberPositionsForSingleThread == 0 && workers.length > currentPosition / numberPositionsForSingleThread) {
+                if (newWorkerNeeded(numberPositionsForSingleThread, currentPosition)) {
                     worker = new GridWorker(grid);
                     workers[currentPosition / numberPositionsForSingleThread] = worker;
                 }
@@ -53,6 +52,14 @@ public class BarrierGridEngine extends AbstractGridEngine implements Runnable {
                 currentPosition++;
             }
         }
+    }
+
+    private boolean newWorkerNeeded(int numberPositionsForSingleThread, int currentPosition) {
+        return currentPosition % numberPositionsForSingleThread == 0 && stillSpaceForAWorker(numberPositionsForSingleThread, currentPosition);
+    }
+
+    private boolean stillSpaceForAWorker(int numberPositionsForSingleThread, int currentPosition) {
+        return workers.length > currentPosition / numberPositionsForSingleThread;
     }
 
     private void startWorkers() {
@@ -74,7 +81,6 @@ public class BarrierGridEngine extends AbstractGridEngine implements Runnable {
     @Override
     public void run() {
         new AsyncTask<Void, Void, Void>() {
-
             @Override
             protected Void doInBackground(Void... voids) {
                 applyRulesToAllCells();

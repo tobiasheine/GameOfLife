@@ -26,6 +26,7 @@ public class GameOfLifeActivity extends Activity implements IGridEngine.GridEngi
         final IGrid grid = gridCanvas.getGrid();
         IGameOfLifeRules rules = new GameOfLifeRules(grid);
 
+        //TODO: add menu to switch between engines
         gridEngine = new BarrierGridEngine(rules,this);
 
         findViewById(R.id.nextStep).setOnClickListener(new View.OnClickListener() {
