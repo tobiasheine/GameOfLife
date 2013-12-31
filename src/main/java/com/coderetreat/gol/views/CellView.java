@@ -12,13 +12,13 @@ public class CellView extends View{
 
     private final Cell cell;
 
-    public CellView(Context context, Cell cell, OnClickListener onClickListener, int cellSize) {
+    public CellView(Context context, Cell cell, OnClickListener onClickListener, int cellDimensions) {
         super(context);
         this.cell = cell;
 
         setOnClickListener(onClickListener);
 
-        GridView.LayoutParams params = new GridView.LayoutParams(cellSize,cellSize);
+        GridView.LayoutParams params = new GridView.LayoutParams(cellDimensions,cellDimensions);
         setLayoutParams(params);
     }
 

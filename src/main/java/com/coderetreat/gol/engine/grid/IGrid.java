@@ -1,4 +1,4 @@
-package com.coderetreat.gol.engine;
+package com.coderetreat.gol.engine.grid;
 
 import com.coderetreat.gol.models.Cell;
 

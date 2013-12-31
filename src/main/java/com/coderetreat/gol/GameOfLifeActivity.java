@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import com.coderetreat.gol.engine.GridEngine;
-import com.coderetreat.gol.engine.IGrid;
+import com.coderetreat.gol.engine.grid.IGrid;
 import com.coderetreat.gol.engine.IGridEngine;
 import com.coderetreat.gol.engine.rules.GameOfLifeRules;
 import com.coderetreat.gol.engine.rules.IGameOfLifeRules;

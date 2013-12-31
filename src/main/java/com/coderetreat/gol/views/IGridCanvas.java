@@ -1,6 +1,6 @@
 package com.coderetreat.gol.views;
 
-import com.coderetreat.gol.engine.IGrid;
+import com.coderetreat.gol.engine.grid.IGrid;
 import com.coderetreat.gol.models.Cell;
 
 public interface IGridCanvas {
@@ -8,5 +8,5 @@ public interface IGridCanvas {
 
     IGrid getGrid();
 
-    void changeManuallyLifeOfCell(Cell.Position position);
+    void changeCellAtPositionManually(Cell.Position position);
 }

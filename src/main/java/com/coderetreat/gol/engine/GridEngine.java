@@ -1,5 +1,6 @@
 package com.coderetreat.gol.engine;
 
+import com.coderetreat.gol.engine.grid.IGrid;
 import com.coderetreat.gol.engine.rules.IGameOfLifeRules;
 import com.coderetreat.gol.models.Cell;
 import java.util.HashMap;
