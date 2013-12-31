@@ -1,17 +1,19 @@
 package com.coderetreat.gol.engine;
 
-import com.coderetreat.gol.ruleset.IGameOfLifeRules;
 import com.coderetreat.gol.grid.cell.Cell;
-import java.util.HashMap;
+import com.coderetreat.gol.ruleset.IGameOfLifeRules;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class AbstractGridEngine implements IGridEngine{
     protected final IGameOfLifeRules rules;
     protected final Map<Cell, IGameOfLifeRules.Rules> cellRulesMap;
+    protected final GridEngineListener engineListener;
 
-    public AbstractGridEngine(IGameOfLifeRules rules) {
+    public AbstractGridEngine(IGameOfLifeRules rules, GridEngineListener engineListener) {
         this.rules = rules;
-        this.cellRulesMap = new HashMap<Cell, IGameOfLifeRules.Rules>();
+        this.engineListener = engineListener;
+        this.cellRulesMap = new ConcurrentHashMap<Cell, IGameOfLifeRules.Rules>();
     }
 
     protected void applyRulesToAllCells() {

@@ -5,8 +5,8 @@ import com.coderetreat.gol.ruleset.IGameOfLifeRules;
 import com.coderetreat.gol.grid.cell.Cell;
 
 public class SingleThreadedGridEngine extends AbstractGridEngine {
-    public SingleThreadedGridEngine(IGameOfLifeRules rules) {
-        super(rules);
+    public SingleThreadedGridEngine(IGameOfLifeRules rules, GridEngineListener engineListener) {
+        super(rules, engineListener);
     }
 
     @Override
@@ -27,5 +27,6 @@ public class SingleThreadedGridEngine extends AbstractGridEngine {
         }
 
         applyRulesToAllCells();
+        engineListener.gridIsProcessed();
     }
 }

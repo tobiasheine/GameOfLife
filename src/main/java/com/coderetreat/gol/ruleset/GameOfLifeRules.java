@@ -3,6 +3,7 @@ package com.coderetreat.gol.ruleset;
 import com.coderetreat.gol.grid.IGrid;
 import com.coderetreat.gol.grid.cell.Cell;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class GameOfLifeRules implements IGameOfLifeRules {
@@ -17,20 +18,20 @@ public class GameOfLifeRules implements IGameOfLifeRules {
         List<Cell> neighbours = getCellNeighbours(cell.getPosition());
         int numberAliveNeighbours = getNumAliveNeighbours(neighbours);
 
-        if (!cell.isAlive() && numberAliveNeighbours == 3){
+        if (!cell.isAlive() && numberAliveNeighbours == 3) {
             return Rules.CELL_COMES_ALIVE;
         }
 
-        if(cell.isAlive() && numberAliveNeighbours < 2){
+        if (cell.isAlive() && numberAliveNeighbours < 2) {
             return Rules.CELL_DIES_BECAUSE_OF_LONELINESS;
         }
 
-        if(cell.isAlive() && numberAliveNeighbours > 1 && numberAliveNeighbours < 4){
+        if (cell.isAlive() && numberAliveNeighbours > 1 && numberAliveNeighbours < 4) {
             return Rules.CELL_STAYS_ALIVE;
 
         }
 
-        if(cell.isAlive() && numberAliveNeighbours > 3){
+        if (cell.isAlive() && numberAliveNeighbours > 3) {
             return Rules.CELL_DIES_BECAUSE_OF_OVERPOPULATION;
 
         }
@@ -40,8 +41,8 @@ public class GameOfLifeRules implements IGameOfLifeRules {
 
     private int getNumAliveNeighbours(List<Cell> neighbours) {
         int numberAliveNeighbours = 0;
-        for (Cell neighbour : neighbours){
-            if (neighbour.isAlive()){
+        for (Cell neighbour : neighbours) {
+            if (neighbour.isAlive()) {
                 numberAliveNeighbours++;
             }
         }
@@ -53,18 +54,17 @@ public class GameOfLifeRules implements IGameOfLifeRules {
 
         int maxX = Math.min(grid.getWidth(), position.getX() + 2);
         int maxY = Math.min(grid.getHeight(), position.getY() + 2);
-        int startX = Math.max(0,position.getX()-1);
+        int startX = Math.max(0, position.getX() - 1);
         int startY = Math.max(0, position.getY() - 1);
 
-        for (int x = startX; x < maxX; x++){
-            for (int y = startY; y < maxY; y++){
+        for (int x = startX; x < maxX; x++) {
+            for (int y = startY; y < maxY; y++) {
                 final Cell.Position neighbourPosition = new Cell.Position(x, y);
-                if (!neighbourPosition.equals(position)){
+                if (!neighbourPosition.equals(position)) {
                     neighbours.add(grid.getCellForPosition(new Cell.Position(x, y)));
                 }
             }
-        } 
-        return neighbours;
+        }
+        return Collections.unmodifiableList(neighbours);
     }
-
 }
