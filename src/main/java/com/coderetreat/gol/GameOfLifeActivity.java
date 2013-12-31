@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import com.coderetreat.gol.engine.SingleThreadedGridEngine;
-import com.coderetreat.gol.engine.grid.IGrid;
+import com.coderetreat.gol.grid.IGrid;
 import com.coderetreat.gol.engine.IGridEngine;
-import com.coderetreat.gol.engine.rules.GameOfLifeRules;
-import com.coderetreat.gol.engine.rules.IGameOfLifeRules;
-import com.coderetreat.gol.views.IGridCanvas;
+import com.coderetreat.gol.ruleset.GameOfLifeRules;
+import com.coderetreat.gol.ruleset.IGameOfLifeRules;
+import com.coderetreat.gol.grid.IGameOfLifeCanvas;
 
 public class GameOfLifeActivity extends Activity {
 
@@ -18,7 +18,7 @@ public class GameOfLifeActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        final IGridCanvas gridCanvas = (IGridCanvas) findViewById(R.id.gameOfLifeCanvas);
+        final IGameOfLifeCanvas gridCanvas = (IGameOfLifeCanvas) findViewById(R.id.gameOfLifeCanvas);
         gridCanvas.drawGrid();
 
         final IGrid grid = gridCanvas.getGrid();

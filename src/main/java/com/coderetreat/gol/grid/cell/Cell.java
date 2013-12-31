@@ -1,4 +1,4 @@
-package com.coderetreat.gol.models;
+package com.coderetreat.gol.grid.cell;
 
 public class Cell {
 

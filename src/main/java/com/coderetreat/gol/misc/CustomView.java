@@ -1,4 +1,4 @@
-package com.coderetreat.gol.views;
+package com.coderetreat.gol.misc;
 
 import android.content.Context;
 import android.view.View;

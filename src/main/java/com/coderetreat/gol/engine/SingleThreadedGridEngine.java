@@ -1,8 +1,8 @@
 package com.coderetreat.gol.engine;
 
-import com.coderetreat.gol.engine.grid.IGrid;
-import com.coderetreat.gol.engine.rules.IGameOfLifeRules;
-import com.coderetreat.gol.models.Cell;
+import com.coderetreat.gol.grid.IGrid;
+import com.coderetreat.gol.ruleset.IGameOfLifeRules;
+import com.coderetreat.gol.grid.cell.Cell;
 
 public class SingleThreadedGridEngine extends AbstractGridEngine {
     public SingleThreadedGridEngine(IGameOfLifeRules rules) {

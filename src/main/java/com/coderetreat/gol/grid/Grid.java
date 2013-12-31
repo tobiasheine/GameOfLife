@@ -1,6 +1,6 @@
-package com.coderetreat.gol.engine.grid;
+package com.coderetreat.gol.grid;
 
-import com.coderetreat.gol.models.Cell;
+import com.coderetreat.gol.grid.cell.Cell;
 
 public class Grid implements IGrid{
 

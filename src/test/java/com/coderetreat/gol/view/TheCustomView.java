@@ -1,7 +1,7 @@
 package com.coderetreat.gol.view;
 
 
-import com.coderetreat.gol.views.CustomView;
+import com.coderetreat.gol.misc.CustomView;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

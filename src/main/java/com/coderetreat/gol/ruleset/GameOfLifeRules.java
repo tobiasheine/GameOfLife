@@ -1,7 +1,7 @@
-package com.coderetreat.gol.engine.rules;
+package com.coderetreat.gol.ruleset;
 
-import com.coderetreat.gol.engine.grid.IGrid;
-import com.coderetreat.gol.models.Cell;
+import com.coderetreat.gol.grid.IGrid;
+import com.coderetreat.gol.grid.cell.Cell;
 import java.util.ArrayList;
 import java.util.List;
 

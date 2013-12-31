@@ -1,4 +1,4 @@
-package com.coderetreat.gol.views;
+package com.coderetreat.gol.grid;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -7,12 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
-import com.coderetreat.gol.engine.grid.Grid;
-import com.coderetreat.gol.engine.grid.IGrid;
+import com.coderetreat.gol.grid.cell.CellView;
 import com.coderetreat.gol.misc.PositionTranslator;
-import com.coderetreat.gol.models.Cell;
+import com.coderetreat.gol.grid.cell.Cell;
 
-public class GameOfLifeGridView extends GridView implements IGridCanvas{
+public class GameOfLifeGridView extends GridView implements IGameOfLifeCanvas {
     private final IGrid grid;
     private final BaseAdapter gridAdapter;
     private final PositionTranslator positionTranslator;
