@@ -3,7 +3,6 @@ package com.coderetreat.gol.grid;
 import com.coderetreat.gol.grid.cell.Cell;
 
 public class Grid implements IGrid{
-
     private final int width;
     private final int height;
 

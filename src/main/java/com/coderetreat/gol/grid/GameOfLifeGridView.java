@@ -17,6 +17,7 @@ public class GameOfLifeGridView extends GridView implements IGameOfLifeCanvas {
     private final PositionTranslator positionTranslator;
     private final int cellDimension;
 
+    //TODO: let user decide
     private int width = 20;
     private int height = 20;
 
