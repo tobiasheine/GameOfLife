@@ -28,14 +28,17 @@ public class Grid implements IGrid{
     }
 
     @Override
-    public Cell getCellForPosition(Cell.Position position){
+    public synchronized Cell getCellForPosition(Cell.Position position){
         return internalGrid[position.getX()][position.getY()];
     }
 
 
     private void addCell(Cell cell) {
         Cell.Position position = cell.getPosition();
-        internalGrid[position.getX()][position.getY()] = cell;
+
+        synchronized (this){
+            internalGrid[position.getX()][position.getY()] = cell;
+        }
     }
 
     @Override

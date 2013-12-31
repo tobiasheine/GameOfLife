@@ -10,11 +10,11 @@ public class Cell {
         this.position = position;
     }
 
-    public boolean isAlive() {
+    public synchronized boolean isAlive() {
         return alive;
     }
 
-    public void setAlive(boolean alive) {
+    public synchronized void setAlive(boolean alive) {
         this.alive = alive;
     }
 
