@@ -1,12 +1,11 @@
-package com.coderetreat.gol.views;
+package com.coderetreat.gol.grid.cell;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.view.View;
 import android.widget.GridView;
-import android.widget.TableRow;
-import com.coderetreat.gol.models.Cell;
+import com.coderetreat.gol.grid.cell.Cell;
 
 public class CellView extends View{
 

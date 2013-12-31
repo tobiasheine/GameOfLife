@@ -11,7 +11,7 @@
             android:layout_height="wrap_content"
             android:text="Next Step"/>
 
-    <com.coderetreat.gol.views.GameOfLifeGridView
+    <com.coderetreat.gol.grid.GameOfLifeGridView
             android:id="@+id/gameOfLifeCanvas"
             android:layout_width="400dp"
             android:layout_height="400dp"

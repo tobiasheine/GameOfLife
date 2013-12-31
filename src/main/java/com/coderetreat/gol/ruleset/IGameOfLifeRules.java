@@ -1,6 +1,6 @@
-package com.coderetreat.gol.engine.rules;
+package com.coderetreat.gol.ruleset;
 
-import com.coderetreat.gol.models.Cell;
+import com.coderetreat.gol.grid.cell.Cell;
 
 public interface IGameOfLifeRules {
     public Rules getRuleForCell(Cell cell);

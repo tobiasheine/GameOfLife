@@ -1,6 +1,6 @@
 package com.coderetreat.gol.misc;
 
-import com.coderetreat.gol.models.Cell;
+import com.coderetreat.gol.grid.cell.Cell;
 
 public class PositionTranslator {
 

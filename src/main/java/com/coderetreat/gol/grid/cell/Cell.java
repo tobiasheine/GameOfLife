@@ -1,4 +1,4 @@
-package com.coderetreat.gol.models;
+package com.coderetreat.gol.grid.cell;
 
 public class Cell {
 
@@ -10,11 +10,11 @@ public class Cell {
         this.position = position;
     }
 
-    public boolean isAlive() {
+    public synchronized boolean isAlive() {
         return alive;
     }
 
-    public void setAlive(boolean alive) {
+    public synchronized void setAlive(boolean alive) {
         this.alive = alive;
     }
 
