@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import com.coderetreat.gol.engine.BarrierGridEngine;
-import com.coderetreat.gol.engine.SingleThreadedGridEngine;
 import com.coderetreat.gol.grid.IGrid;
 import com.coderetreat.gol.engine.IGridEngine;
 import com.coderetreat.gol.ruleset.GameOfLifeRules;
@@ -15,6 +14,7 @@ public class GameOfLifeActivity extends Activity implements IGridEngine.GridEngi
 
     private IGridEngine gridEngine;
     private IGameOfLifeCanvas gridCanvas;
+    private View nextStep;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,9 +29,11 @@ public class GameOfLifeActivity extends Activity implements IGridEngine.GridEngi
         //TODO: add menu to switch between engines
         gridEngine = new BarrierGridEngine(rules,this);
 
-        findViewById(R.id.nextStep).setOnClickListener(new View.OnClickListener() {
+        nextStep = findViewById(R.id.nextStep);
+        nextStep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                nextStep.setEnabled(false);
                 gridEngine.processNextGeneration(grid);
             }
         });
@@ -40,5 +42,6 @@ public class GameOfLifeActivity extends Activity implements IGridEngine.GridEngi
     @Override
     public void gridIsProcessed() {
         gridCanvas.drawGrid();
+        nextStep.setEnabled(true);
     }
 }
