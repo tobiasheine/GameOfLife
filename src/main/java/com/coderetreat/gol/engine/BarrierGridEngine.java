@@ -1,6 +1,7 @@
 package com.coderetreat.gol.engine;
 
-import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
 import com.coderetreat.gol.grid.IGrid;
 import com.coderetreat.gol.grid.cell.Cell;
 import com.coderetreat.gol.ruleset.IGameOfLifeRules;
@@ -14,11 +15,13 @@ public class BarrierGridEngine extends AbstractGridEngine implements Runnable {
 
     private final CyclicBarrier barrier;
     private final GridWorker[] workers;
+    private final Handler mainLoop;
 
     public BarrierGridEngine(IGameOfLifeRules rules, GridEngineListener engineListener) {
         super(rules, engineListener);
         barrier = new CyclicBarrier(NUMBER_THREADS, this);
         workers = new GridWorker[NUMBER_THREADS];
+        mainLoop = new Handler(Looper.getMainLooper());
     }
 
     @Override
@@ -77,21 +80,17 @@ public class BarrierGridEngine extends AbstractGridEngine implements Runnable {
         }
     }
 
-    //TODO: this shouldn't be a runnable and get rid of that async task
+    //executed on one of the worker threads, before they're released
     @Override
     public void run() {
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... voids) {
-                applyRulesToAllCells();
-                return null;
-            }
+        applyRulesToAllCells();
 
+        mainLoop.post(new Runnable() {
             @Override
-            protected void onPostExecute(Void aVoid) {
+            public void run() {
                 engineListener.gridIsProcessed();
             }
-        }.execute();
+        });
     }
 
     private class GridWorker implements Runnable, IGridEngine {
