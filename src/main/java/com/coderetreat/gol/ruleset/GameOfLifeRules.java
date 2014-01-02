@@ -2,8 +2,6 @@ package com.coderetreat.gol.ruleset;
 
 import com.coderetreat.gol.grid.IGrid;
 import com.coderetreat.gol.grid.cell.Cell;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class GameOfLifeRules implements IGameOfLifeRules {
@@ -15,7 +13,7 @@ public class GameOfLifeRules implements IGameOfLifeRules {
 
     @Override
     public Rules getRuleForCell(Cell cell) {
-        List<Cell> neighbours = getCellNeighbours(cell.getPosition());
+        List<Cell> neighbours = grid.getCellNeighbours(cell.getPosition());
         int numberAliveNeighbours = getNumAliveNeighbours(neighbours);
 
         if (!cell.isAlive() && numberAliveNeighbours == 3) {
@@ -47,24 +45,5 @@ public class GameOfLifeRules implements IGameOfLifeRules {
             }
         }
         return numberAliveNeighbours;
-    }
-
-    private List<Cell> getCellNeighbours(Cell.Position position) {
-        List<Cell> neighbours = new ArrayList<Cell>();
-
-        int maxX = Math.min(grid.getWidth(), position.getX() + 2);
-        int maxY = Math.min(grid.getHeight(), position.getY() + 2);
-        int startX = Math.max(0, position.getX() - 1);
-        int startY = Math.max(0, position.getY() - 1);
-
-        for (int x = startX; x < maxX; x++) {
-            for (int y = startY; y < maxY; y++) {
-                final Cell.Position neighbourPosition = new Cell.Position(x, y);
-                if (!neighbourPosition.equals(position)) {
-                    neighbours.add(grid.getCellForPosition(new Cell.Position(x, y)));
-                }
-            }
-        }
-        return Collections.unmodifiableList(neighbours);
     }
 }
