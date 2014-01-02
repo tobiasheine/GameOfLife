@@ -1,19 +1,17 @@
-package com.coderetreat.gol.engine;
+package com.coderetreat.gol.engine.concurrent;
 
 import android.os.Handler;
 import android.os.Looper;
+import com.coderetreat.gol.engine.AbstractGridEngine;
 import com.coderetreat.gol.grid.IGrid;
 import com.coderetreat.gol.grid.cell.Cell;
 import com.coderetreat.gol.ruleset.IGameOfLifeRules;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class BarrierGridEngine extends AbstractGridEngine implements Runnable {
-    private final int NUMBER_THREADS = Runtime.getRuntime().availableProcessors();
+    private final static int NUMBER_THREADS = Runtime.getRuntime().availableProcessors();
 
     private final CyclicBarrier barrier;
     private final Handler mainLoop;
@@ -29,10 +27,10 @@ public class BarrierGridEngine extends AbstractGridEngine implements Runnable {
     @Override
     public void processNextGeneration(IGrid grid) {
         reset();
-        initWorkersWithPositions(grid);
+        initAndStartWorkers(grid);
     }
 
-    private void initWorkersWithPositions(IGrid grid) {
+    private void initAndStartWorkers(IGrid grid) {
         int gridDimensions = grid.getWidth() * grid.getHeight();
         int numberPositionsForSingleThread = gridDimensions / NUMBER_THREADS;
 
@@ -41,21 +39,21 @@ public class BarrierGridEngine extends AbstractGridEngine implements Runnable {
 
         int currentPosition = 0;
 
-        GridWorker worker = null;
+        BarrierGridWorker worker = null;
 
-        GridWorker[] workers = new GridWorker[NUMBER_THREADS];
+        final BarrierGridWorker[] workers = new BarrierGridWorker[NUMBER_THREADS];
 
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 if (newWorkerNeeded(workers,numberPositionsForSingleThread, currentPosition)) {
-                    worker = new GridWorker(grid);
-                    workers[currentPosition / numberPositionsForSingleThread] = worker;
+                    final int workerIndex = currentPosition / numberPositionsForSingleThread;
 
-                    int lastWorkerIndex = currentPosition / numberPositionsForSingleThread - 1;
-
-                    if (lastWorkerIndex >= 0){
-                        executor.execute(workers[lastWorkerIndex]);
+                    if (workerIndex > 0){
+                        executor.execute(workers[workerIndex-1]);
                     }
+
+                    worker = new BarrierGridWorker(grid, barrier, cellRulesMap, rules);
+                    workers[workerIndex] = worker;
                 }
 
                 if (worker != null) {
@@ -68,20 +66,21 @@ public class BarrierGridEngine extends AbstractGridEngine implements Runnable {
         executor.execute(workers[workers.length-1]);
     }
 
-    private boolean newWorkerNeeded(GridWorker[] workers, int numberPositionsForSingleThread, int currentPosition) {
+    private boolean newWorkerNeeded(BarrierGridWorker[] workers, int numberPositionsForSingleThread, int currentPosition) {
         return currentPosition % numberPositionsForSingleThread == 0 && stillSpaceForAWorker(workers,numberPositionsForSingleThread, currentPosition);
     }
 
-    private boolean stillSpaceForAWorker(GridWorker[] workers, int numberPositionsForSingleThread, int currentPosition) {
+    private boolean stillSpaceForAWorker(BarrierGridWorker[] workers, int numberPositionsForSingleThread, int currentPosition) {
         return workers.length > currentPosition / numberPositionsForSingleThread;
     }
 
     private void reset() {
+        //TODO: cancel running tasks
         barrier.reset();
         cellRulesMap.clear();
     }
 
-    //executed on one of the worker threads, before they're released
+    //executed on one of the barriers worker threads, before they're released
     @Override
     public void run() {
         applyRulesToAllCells();
@@ -92,43 +91,5 @@ public class BarrierGridEngine extends AbstractGridEngine implements Runnable {
                 engineListener.gridIsProcessed();
             }
         });
-    }
-
-    private class GridWorker implements Runnable, IGridEngine {
-
-        private final List<Cell.Position> positionList;
-        private final IGrid grid;
-
-        private GridWorker(IGrid grid) {
-            this.positionList = new ArrayList<Cell.Position>();
-            this.grid = grid;
-        }
-
-        private void addPosition(Cell.Position position) {
-            positionList.add(position);
-        }
-
-        @Override
-        public void run() {
-            processNextGeneration(grid);
-        }
-
-        @Override
-        public void processNextGeneration(IGrid grid) {
-            for (Cell.Position position : positionList) {
-                Cell cell = grid.getCellForPosition(position);
-
-                IGameOfLifeRules.Rules ruleForCell = rules.getRuleForCell(cell);
-                cellRulesMap.put(cell, ruleForCell);
-            }
-
-            try {
-                barrier.await();
-            } catch (InterruptedException e) {
-                return;
-            } catch (BrokenBarrierException e) {
-                return;
-            }
-        }
     }
 }
