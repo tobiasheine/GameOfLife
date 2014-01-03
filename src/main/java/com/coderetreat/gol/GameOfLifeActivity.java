@@ -3,12 +3,12 @@ package com.coderetreat.gol;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-import com.coderetreat.gol.engine.concurrent.barrier.BarrierGridEngine;
-import com.coderetreat.gol.grid.IGrid;
 import com.coderetreat.gol.engine.IGridEngine;
+import com.coderetreat.gol.engine.concurrent.barrier.BarrierGridEngine;
+import com.coderetreat.gol.grid.IGameOfLifeCanvas;
+import com.coderetreat.gol.grid.IGrid;
 import com.coderetreat.gol.ruleset.GameOfLifeRuleSet;
 import com.coderetreat.gol.ruleset.IGameOfLifeRuleSet;
-import com.coderetreat.gol.grid.IGameOfLifeCanvas;
 
 public class GameOfLifeActivity extends Activity implements IGridEngine.GridEngineListener{
 
