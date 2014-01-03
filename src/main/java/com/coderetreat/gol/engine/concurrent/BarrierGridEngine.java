@@ -39,9 +39,9 @@ public class BarrierGridEngine extends AbstractGridEngine implements Runnable {
 
         int currentPosition = 0;
 
-        BarrierGridWorker worker = null;
+        GridWorker worker = null;
 
-        final BarrierGridWorker[] workers = new BarrierGridWorker[NUMBER_THREADS];
+        final GridWorker[] workers = new BarrierGridWorker[NUMBER_THREADS];
 
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
@@ -52,7 +52,7 @@ public class BarrierGridEngine extends AbstractGridEngine implements Runnable {
                         executor.execute(workers[workerIndex-1]);
                     }
 
-                    worker = new BarrierGridWorker(grid, barrier, cellRulesMap, rules);
+                    worker = new BarrierGridWorker(new BaseGridWorker(grid, cellRulesMap, rules),barrier);
                     workers[workerIndex] = worker;
                 }
 
@@ -66,11 +66,11 @@ public class BarrierGridEngine extends AbstractGridEngine implements Runnable {
         executor.execute(workers[workers.length-1]);
     }
 
-    private boolean newWorkerNeeded(BarrierGridWorker[] workers, int numberPositionsForSingleThread, int currentPosition) {
+    private boolean newWorkerNeeded(GridWorker[] workers, int numberPositionsForSingleThread, int currentPosition) {
         return currentPosition % numberPositionsForSingleThread == 0 && stillSpaceForAWorker(workers,numberPositionsForSingleThread, currentPosition);
     }
 
-    private boolean stillSpaceForAWorker(BarrierGridWorker[] workers, int numberPositionsForSingleThread, int currentPosition) {
+    private boolean stillSpaceForAWorker(GridWorker[] workers, int numberPositionsForSingleThread, int currentPosition) {
         return workers.length > currentPosition / numberPositionsForSingleThread;
     }
 
