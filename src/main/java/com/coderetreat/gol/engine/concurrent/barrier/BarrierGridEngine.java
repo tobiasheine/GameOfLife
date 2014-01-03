@@ -1,8 +1,10 @@
-package com.coderetreat.gol.engine.concurrent;
+package com.coderetreat.gol.engine.concurrent.barrier;
 
 import android.os.Handler;
 import android.os.Looper;
 import com.coderetreat.gol.engine.AbstractGridEngine;
+import com.coderetreat.gol.engine.concurrent.BaseGridWorker;
+import com.coderetreat.gol.engine.concurrent.GridWorker;
 import com.coderetreat.gol.grid.IGrid;
 import com.coderetreat.gol.grid.cell.Cell;
 import com.coderetreat.gol.ruleset.IGameOfLifeRules;
@@ -13,9 +15,9 @@ import java.util.concurrent.Executors;
 public class BarrierGridEngine extends AbstractGridEngine implements Runnable {
     private final static int NUMBER_THREADS = Runtime.getRuntime().availableProcessors();
 
-    private final CyclicBarrier barrier;
     private final Handler mainLoop;
     private final Executor executor;
+    private final CyclicBarrier barrier;
 
     public BarrierGridEngine(IGameOfLifeRules rules, GridEngineListener engineListener) {
         super(rules, engineListener);

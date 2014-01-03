@@ -31,7 +31,10 @@ public class BaseGridWorker implements GridWorker{
             Cell cell = grid.getCellForPosition(position);
 
             IGameOfLifeRules.Rules ruleForCell = rules.getRuleForCell(cell);
-            cellRulesMap.put(cell, ruleForCell);
+
+            if (ruleForCell != IGameOfLifeRules.Rules.CELL_DOES_NOT_CHANGE){
+                cellRulesMap.put(cell, ruleForCell);
+            }
         }
     }
 

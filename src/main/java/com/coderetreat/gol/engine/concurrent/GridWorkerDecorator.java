@@ -7,7 +7,6 @@ public class GridWorkerDecorator implements GridWorker {
     private final GridWorker gridWorker;
 
     public GridWorkerDecorator(GridWorker gridWorker) {
-        super();
         this.gridWorker = gridWorker;
     }
 
