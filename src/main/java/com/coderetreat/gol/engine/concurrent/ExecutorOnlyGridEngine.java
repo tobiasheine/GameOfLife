@@ -22,14 +22,14 @@ public class ExecutorOnlyGridEngine extends AbstractGridEngine{
     @Override
     public void processNextGeneration(final IGrid grid) {
         cellRulesMap.clear();
-        executor = Executors.newFixedThreadPool(NUMBER_THREADS+1);
 
+        //because executor.awaitTermination blocks the following code should be executed on a separate thread
+        executor = Executors.newFixedThreadPool(NUMBER_THREADS+1);
         executor.execute(new Runnable() {
             @Override
             public void run() {
                 int gridDimensions = grid.getWidth() * grid.getHeight();
                 int numberPositionsForSingleThread = gridDimensions / NUMBER_THREADS;
-
                 int width = grid.getWidth();
                 int height = grid.getHeight();
 
@@ -54,12 +54,15 @@ public class ExecutorOnlyGridEngine extends AbstractGridEngine{
                     }
                 }
 
+                //submit all tasks to executor
                 for(int workerCount = 0; workerCount < workers.length;workerCount++){
                     executor.submit(workers[workerCount]);
                 }
 
+                //performs shutdown and executes all submitted tasks
                 executor.shutdown();
 
+                //blocks until all tasks are executed
                 try {
                     executor.awaitTermination(Long.MAX_VALUE, TimeUnit.MINUTES);
                 } catch (InterruptedException e) {
