@@ -5,7 +5,7 @@ import android.os.Looper;
 import com.coderetreat.gol.engine.AbstractGridEngine;
 import com.coderetreat.gol.grid.IGrid;
 import com.coderetreat.gol.grid.cell.Cell;
-import com.coderetreat.gol.ruleset.IGameOfLifeRules;
+import com.coderetreat.gol.ruleset.IGameOfLifeRuleSet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -15,7 +15,7 @@ public class ExecutorOnlyGridEngine extends AbstractGridEngine{
 
     private ExecutorService executor;
 
-    public ExecutorOnlyGridEngine(IGameOfLifeRules rules, GridEngineListener engineListener) {
+    public ExecutorOnlyGridEngine(IGameOfLifeRuleSet rules, GridEngineListener engineListener) {
         super(rules, engineListener);
     }
 

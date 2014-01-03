@@ -1,11 +1,11 @@
 package com.coderetreat.gol.engine;
 
 import com.coderetreat.gol.grid.IGrid;
-import com.coderetreat.gol.ruleset.IGameOfLifeRules;
+import com.coderetreat.gol.ruleset.IGameOfLifeRuleSet;
 import com.coderetreat.gol.grid.cell.Cell;
 
 public class SingleThreadedGridEngine extends AbstractGridEngine {
-    public SingleThreadedGridEngine(IGameOfLifeRules rules, GridEngineListener engineListener) {
+    public SingleThreadedGridEngine(IGameOfLifeRuleSet rules, GridEngineListener engineListener) {
         super(rules, engineListener);
     }
 
@@ -21,7 +21,7 @@ public class SingleThreadedGridEngine extends AbstractGridEngine {
                 Cell.Position positionForNextCell = new Cell.Position(x,y);
                 Cell cell = grid.getCellForPosition(positionForNextCell);
 
-                IGameOfLifeRules.Rules ruleForCell = rules.getRuleForCell(cell);
+                IGameOfLifeRuleSet.Rule ruleForCell = rules.getRuleForCell(cell);
                 cellRulesMap.put(cell,ruleForCell);
             }
         }

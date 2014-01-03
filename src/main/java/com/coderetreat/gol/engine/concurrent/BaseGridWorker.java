@@ -2,18 +2,18 @@ package com.coderetreat.gol.engine.concurrent;
 
 import com.coderetreat.gol.grid.IGrid;
 import com.coderetreat.gol.grid.cell.Cell;
-import com.coderetreat.gol.ruleset.IGameOfLifeRules;
+import com.coderetreat.gol.ruleset.IGameOfLifeRuleSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class BaseGridWorker implements GridWorker{
     private final IGrid grid;
-    private final Map<Cell, IGameOfLifeRules.Rules> cellRulesMap;
-    private final IGameOfLifeRules rules;
+    private final Map<Cell, IGameOfLifeRuleSet.Rule> cellRulesMap;
+    private final IGameOfLifeRuleSet rules;
     private final List<Cell.Position> positionList;
 
-    public BaseGridWorker(IGrid grid, Map<Cell, IGameOfLifeRules.Rules> cellRulesMap, IGameOfLifeRules rules) {
+    public BaseGridWorker(IGrid grid, Map<Cell, IGameOfLifeRuleSet.Rule> cellRulesMap, IGameOfLifeRuleSet rules) {
         this.grid = grid;
         this.cellRulesMap = cellRulesMap;
         this.rules = rules;
@@ -30,9 +30,9 @@ public class BaseGridWorker implements GridWorker{
         for (Cell.Position position : positionList) {
             Cell cell = grid.getCellForPosition(position);
 
-            IGameOfLifeRules.Rules ruleForCell = rules.getRuleForCell(cell);
+            IGameOfLifeRuleSet.Rule ruleForCell = rules.getRuleForCell(cell);
 
-            if (ruleForCell != IGameOfLifeRules.Rules.CELL_DOES_NOT_CHANGE){
+            if (ruleForCell != IGameOfLifeRuleSet.Rule.CELL_DOES_NOT_CHANGE){
                 cellRulesMap.put(cell, ruleForCell);
             }
         }

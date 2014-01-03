@@ -3,12 +3,11 @@ package com.coderetreat.gol;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-import com.coderetreat.gol.engine.concurrent.ExecutorOnlyGridEngine;
 import com.coderetreat.gol.engine.concurrent.barrier.BarrierGridEngine;
 import com.coderetreat.gol.grid.IGrid;
 import com.coderetreat.gol.engine.IGridEngine;
-import com.coderetreat.gol.ruleset.GameOfLifeRules;
-import com.coderetreat.gol.ruleset.IGameOfLifeRules;
+import com.coderetreat.gol.ruleset.GameOfLifeRuleSet;
+import com.coderetreat.gol.ruleset.IGameOfLifeRuleSet;
 import com.coderetreat.gol.grid.IGameOfLifeCanvas;
 
 public class GameOfLifeActivity extends Activity implements IGridEngine.GridEngineListener{
@@ -25,7 +24,7 @@ public class GameOfLifeActivity extends Activity implements IGridEngine.GridEngi
         gridCanvas.drawGrid();
 
         final IGrid grid = gridCanvas.getGrid();
-        IGameOfLifeRules rules = new GameOfLifeRules(grid);
+        IGameOfLifeRuleSet rules = new GameOfLifeRuleSet(grid);
 
         //TODO: add menu to switch between engines
         gridEngine = new BarrierGridEngine(rules,this);

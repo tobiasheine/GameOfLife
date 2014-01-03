@@ -7,7 +7,7 @@ import com.coderetreat.gol.engine.concurrent.BaseGridWorker;
 import com.coderetreat.gol.engine.concurrent.GridWorker;
 import com.coderetreat.gol.grid.IGrid;
 import com.coderetreat.gol.grid.cell.Cell;
-import com.coderetreat.gol.ruleset.IGameOfLifeRules;
+import com.coderetreat.gol.ruleset.IGameOfLifeRuleSet;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -19,7 +19,7 @@ public class BarrierGridEngine extends AbstractGridEngine implements Runnable {
     private final Executor executor;
     private final CyclicBarrier barrier;
 
-    public BarrierGridEngine(IGameOfLifeRules rules, GridEngineListener engineListener) {
+    public BarrierGridEngine(IGameOfLifeRuleSet rules, GridEngineListener engineListener) {
         super(rules, engineListener);
         barrier = new CyclicBarrier(NUMBER_THREADS, this);
         mainLoop = new Handler(Looper.getMainLooper());
